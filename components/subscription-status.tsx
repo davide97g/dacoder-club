@@ -1,6 +1,6 @@
 "use client";
 
-import { checkYouTubeSubscription } from "@/app/actions";
+import { checkGithubAccount, checkYouTubeSubscription } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,6 +25,8 @@ export function SubscriptionStatus() {
   async function checkSubscription() {
     setStatus({ loading: true });
     const result = await checkYouTubeSubscription();
+    const resultGithub = await checkGithubAccount();
+    console.info(resultGithub);
     setStatus({
       subscribed: result.subscribed,
       error: result.error,

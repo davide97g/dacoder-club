@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -10,6 +11,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         params: {
           scope:
             "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/youtube.readonly",
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
+    }),
+    GitHub({
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+      authorization: {
+        params: {
+          scope: "read:user",
           prompt: "consent",
           access_type: "offline",
           response_type: "code",

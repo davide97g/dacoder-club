@@ -1,6 +1,7 @@
 import { auth, signIn } from "@/auth";
 import { SubscriptionStatus } from "@/components/subscription-status";
 import { Button } from "@/components/ui/button";
+import { Github } from "lucide-react";
 
 export default async function Home() {
   const session = await auth();
@@ -17,17 +18,34 @@ export default async function Home() {
         <SubscriptionStatus />
       ) : (
         <div className="flex flex-col items-center gap-4">
-          <form
-            action={async () => {
-              "use server";
-              await signIn("google");
-            }}
-          >
-            <Button size="lg">Sign in with Google</Button>
-          </form>
-          <p className="text-sm text-muted-foreground">
-            We&apos;ll only check if you&apos;re subscribed to our channel.
-          </p>
+          <div className="flex flex-col items-center gap-4">
+            <form
+              action={async () => {
+                "use server";
+                await signIn("google");
+              }}
+            >
+              <Button size="lg">Sign in with Google</Button>
+            </form>
+            <p className="text-sm text-muted-foreground">
+              We&apos;ll only check if you&apos;re subscribed to our channel.
+            </p>
+          </div>
+          <div className="flex flex-col items-center gap-4">
+            <form
+              action={async () => {
+                "use server";
+                await signIn("github");
+              }}
+            >
+              <Button size="lg">
+                Sign in with Github <Github className="h-4 w-4" />
+              </Button>
+            </form>
+            <p className="text-sm text-muted-foreground">
+              We&apos;ll only check your github account username.
+            </p>
+          </div>
         </div>
       )}
     </div>
